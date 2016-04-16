@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Board;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,5 +25,18 @@ class PlayController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('/');
+    }
+
+    public function control($id){
+        if(Auth::user()->units != 0) {
+            if(Board::where('user_id', Auth::user()->id)
+                ->where('tile', $id)
+                ->where('owns', 1)
+                ->increment('army'))
+            User::where('id', Auth::user()->id)
+                ->decrement('units');
+            return redirect('/play');
+        }
+        return redirect('/play');
     }
 }

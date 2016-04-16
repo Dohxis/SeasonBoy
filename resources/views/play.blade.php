@@ -6,6 +6,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
+                    <div class="alert alert-success" role="alert">
+                        <b>You have {{ $user['units'] }} undeployed units!</b><br>
+                        All units has to be deployed before attacking. To deploy click on your territories(Green tiles).
+                    </div>
+
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
 
@@ -29,9 +34,9 @@
 
                     <center>
                     <div class="board center-block">
-                        <center style="margin-left: 13%;">
+                        <center class="center-things">
                         @foreach($tiles as $tile)
-                            <div class="col-md-1 tile" style="color: white; background-color: #3f5a54; margin: 2px; height: 50px; width: 8%;">{{ $tile['tile'] }}</div>
+                            <a href="go/{{ $tile['tile'] }}" class="col-xs-1 tile hover-green" style="color: white; background-color: {{ $tile->getColor() }}; margin: 2px; height: 50px; width: 8%; padding-top: 3%"><b>{{ $tile['army'] }}</b></a>
                             @if(($tile['tile'] + 1) % 10 == 0)
                                 <div class="row"></div>
                             @endif

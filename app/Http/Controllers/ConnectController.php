@@ -36,7 +36,14 @@ class ConnectController extends Controller
                     $tile = new Board;
                     $tile->user_id = $user->id;
                     $tile->tile = $i;
-                    $tile->owns = 0;
+                    if($i == 90) {
+                        $tile->owns = 1;
+                        $tile->army = 3;
+                    } else if($i == 8 or $i == 9 or $i == 19) {
+                        $tile->owns = 3;
+                        if($i != 9) $tile->army = 3;
+                    } else
+                        $tile->owns = 0;
                     $tile->save();
                 }
                 
