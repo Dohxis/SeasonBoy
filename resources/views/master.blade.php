@@ -14,7 +14,7 @@
     <![endif]-->
 
 </head>
-<body>
+<body style="@yield('bg')">
     <div class="container-fluid">
         @yield('content')
     </div>

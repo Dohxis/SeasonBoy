@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('bg')
+    {{ $user->getBackground() }}
+@endsection
+
 @section('content')
     <div class="row vcenter">
         <div class="col-md-6 center-block">

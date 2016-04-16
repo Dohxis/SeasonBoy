@@ -27,4 +27,23 @@ class User extends Authenticatable
     public function board(){
         return $this->hasMany('App\Board', 'user_id');
     }
+
+    public function getBackground(){
+        $bg = "";
+        switch ($this->season){
+            case "Winter":
+                $bg = "background: linear-gradient(283deg, #878BFF 0%, #081a80 100%)";
+                break;
+            case "Summer":
+                $bg = "background: linear-gradient(283deg, #f3543f 0%, #e2a240 100%)";
+                break;
+            case "Autumn":
+                $bg = "background: linear-gradient(283deg, #ffd4c7 0%, #803E2B 100%)";
+                break;
+            case "Spring":
+                $bg = "background: linear-gradient(283deg, #d9ffd1 0%, #49806B 100%)";
+                break;
+        }
+        return $bg;
+    }
 }
