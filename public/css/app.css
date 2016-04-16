@@ -1,0 +1,15 @@
+body {
+  background: linear-gradient(283deg, #f3543f 0%, #e2a240 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2a240', endColorstr='#f3543f',GradientType=1 ); }
+
+.vcenter {
+  min-height: 100% !important;
+  min-height: 100vh !important;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+/*# sourceMappingURL=app.css.map */
