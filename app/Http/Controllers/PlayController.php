@@ -71,34 +71,20 @@ class PlayController extends Controller
             User::where('id', Auth::user()->id)->update(['Autumn' => false, 'Winter' => false, 'Summer' => false, 'Spring' => false]);
             $deploy += 10;
 
-                $tile = -1;
-                while($tile != -1 && $tile != 90)
-                    $tile = mt_rand(60, 99);
-                Board::where('user_id', Auth::user()->id)->where('tile', $tile)->update(['owns' => 3, 'army' => 10]);
+            Board::where('user_id', Auth::user()->id)->where('owns', 3)->update(['army' => 3]);
 
         }
 
         $dir = [-1, -10, 10];
         shuffle($dir);
 
-        $armiestoGive = 4;
+        $armiestoGive = 6;
         if($newSeason == "Autumn")
-            $armiestoGive = 2;
+            $armiestoGive = 4;
 
         if($newSeason == "Spring")
-            $armiestoGive = 6;
+            $armiestoGive = 8;
 
-
-        for($i = 0; $i < 100; $i++){
-            if($armiestoGive > 0) {
-                if (Board::where('user_id', Auth::user()->id)->where('tile', $i)->first()['owns'] == 3) {
-                    $nowArmies = Board::getArmies($i);
-                    Board::where('user_id', Auth::user()->id)->where('tile', $i)->update(['army' => ($nowArmies + 2)]);
-                    $armiestoGive -= 2;
-                    $i = (($i / 10) + 1) * 10;
-                }
-            }
-        }
 
         if($season != "Winter"){
             $tiles = Board::getEnemiesTiles();
@@ -107,15 +93,19 @@ class PlayController extends Controller
                     for($i = 0; $i < 3;$i++) {
                         if (Board::where('user_id', Auth::user()->id)->where('tile', ($tile['tile'] + $dir[$i]))->first()['owns'] != 3 && $tile['army'] > 2) {
                             $tileToAttack = $tile['tile'] + $dir[$i];
-                            if ((Board::getArmies($tile['tile']) - 1) - Board::getArmies($tileToAttack) >= 1 && $tileToAttack >= 1) {
-                                $armiesToMove = (Board::getArmies($tile['tile']) - 1) - Board::getArmies($tileToAttack);
+                            if (Board::getArmies($tile['tile']) - Board::getArmies($tileToAttack) > 0) {
+                                $buff = ($armiestoGive > 0) ? 2 : 0;
+                                $armiesToMove = (Board::getArmies($tile['tile']) - 1) - Board::getArmies($tileToAttack) + $buff;
                                 //echo($tileToAttack . ' ' . $tile['tile'] . ' ' . $armiesToMove . ' ' . $dir[$i] . '<br>');
                                 Board::where('user_id', Auth::user()->id)->where('tile', $tileToAttack)->update(['owns' => 3, 'army' => $armiesToMove]);
                                 Board::where('user_id', Auth::user()->id)->where('tile', $tile['tile'])->update(['army' => 1]);
+                                $armiestoGive -= 2;
                             } else {
+                                $buff = ($armiestoGive > 0) ? 2 : 0;
                                 $armiesToMove = Board::getArmies($tileToAttack) - (Board::getArmies($tile['tile']) - 1);
                                     Board::where('user_id', Auth::user()->id)->where('tile', $tileToAttack)->update(['army' => $armiesToMove]);
-                                Board::where('user_id', Auth::user()->id)->where('tile', $tile['tile'])->update(['army' => 1]);
+                                Board::where('user_id', Auth::user()->id)->where('tile', $tile['tile'])->update(['army' => 1 + $buff]);
+                                $armiestoGive -= 2;
                             }
                         }
                     }

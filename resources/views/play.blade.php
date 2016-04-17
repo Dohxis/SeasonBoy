@@ -17,6 +17,13 @@
                         </div><br>
                     @endif
 
+                    @if($user->getTiles() == 0)
+                        <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+                            <b>You lost!!</b><br>
+                            You just lost, if you want can click <a href="/logout">here</a> to create a new hero.
+                        </div><br>
+                    @endif
+
                     @if($user['units'] > 0)
                     <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
                         <b>You have {{ $user['units'] }} undeployed units!</b><br>

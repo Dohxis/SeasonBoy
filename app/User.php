@@ -68,4 +68,5 @@ class User extends Authenticatable
     public function getEnemyTiles(){
         return Board::where('user_id', $this->id)->where('owns', 3)->count();
     }
+    
 }
