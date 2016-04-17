@@ -22,7 +22,7 @@
                             @foreach($players as $index => $player)
                                 <tr>
                                     <td scope="row">{{ $index + 1 }}</td>
-                                    <td scope="row">{{ $player['name'] }}</td>
+                                    <td scope="row">{{ $player['name'] }} @if($player->getEnemyTiles() == 0)<span class="label label-primary">Won</span>@endif</td>
                                     <td scope="row">{{ $player['points'] }}</td>
                                     <td scope="row">{{ $player->getTiles() }}</td>
                                 </tr>

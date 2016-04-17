@@ -14,7 +14,7 @@
                         <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
                             <b>You won!!</b><br>
                             Congrats you won! You captured all of your enemy's territories.
-                        </div>
+                        </div><br>
                     @endif
 
                     @if($user['units'] > 0)

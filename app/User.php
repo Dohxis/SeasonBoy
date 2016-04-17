@@ -38,10 +38,10 @@ class User extends Authenticatable
                 $bg = "background: linear-gradient(283deg, #f3543f 0%, #e2a240 100%)";
                 break;
             case "Autumn":
-                $bg = "background: linear-gradient(283deg, #ffd4c7 0%, #803E2B 100%)";
+                $bg = "background: linear-gradient(283deg, #DACAA6 0%, #CC784C 100%)";
                 break;
             case "Spring":
-                $bg = "background: linear-gradient(283deg, #d9ffd1 0%, #49806B 100%)";
+                $bg = "background: linear-gradient(283deg, #BBDA5B 0%, #8FA64A 100%)";
                 break;
         }
         return $bg;

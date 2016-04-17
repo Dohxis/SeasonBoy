@@ -53,6 +53,10 @@ class PlayController extends Controller
                         $armiesToMove = (Board::getArmies($attacks[$i]) - 1) - Board::getArmies($attacks[$i + 1]);
                         Board::where('user_id', Auth::user()->id)->where('tile', $attacks[$i+1])->update(['owns' => 1, 'army' => $armiesToMove]);
                         Board::where('user_id', Auth::user()->id)->where('tile', $attacks[$i])->update(['army' => 1]);
+                    } else {
+                        $armiesToMove = Board::getArmies($attacks[$i + 1]) - (Board::getArmies($attacks[$i]) - 1);
+                        Board::where('user_id', Auth::user()->id)->where('tile', $attacks[$i+1])->update(['army' => $armiesToMove]);
+                        Board::where('user_id', Auth::user()->id)->where('tile', $attacks[$i])->update(['army' => 1]);
                     }
                 }
             }
@@ -66,7 +70,12 @@ class PlayController extends Controller
         if(Auth::user()->Autumn && Auth::user()->Spring && Auth::user()->Summer && Auth::user()->Winter){
             User::where('id', Auth::user()->id)->update(['Autumn' => false, 'Winter' => false, 'Summer' => false, 'Spring' => false]);
             $deploy += 10;
-            
+
+                $tile = -1;
+                while($tile != -1 && $tile != 90)
+                    $tile = mt_rand(60, 99);
+                Board::where('user_id', Auth::user()->id)->where('tile', $tile)->update(['owns' => 3, 'army' => 10]);
+
         }
 
         $dir = [-1, -10, 10];
@@ -95,13 +104,17 @@ class PlayController extends Controller
             $tiles = Board::getEnemiesTiles();
             foreach($tiles as $tile){
                 if($tile['army'] > 1){
-                    for($i = 0; $i < 2;$i++) {
-                        if (Board::where('user_id', Auth::user()->id)->where('tile', ($tile['tile'] + $dir[$i]))->first()['owns'] != 3 && $tile['army'] > 1) {
+                    for($i = 0; $i < 3;$i++) {
+                        if (Board::where('user_id', Auth::user()->id)->where('tile', ($tile['tile'] + $dir[$i]))->first()['owns'] != 3 && $tile['army'] > 2) {
                             $tileToAttack = $tile['tile'] + $dir[$i];
-                            if ((Board::getArmies($tile['tile']) - 1) - Board::getArmies($tileToAttack) >= 1 && $tileToAttack > 0) {
+                            if ((Board::getArmies($tile['tile']) - 1) - Board::getArmies($tileToAttack) >= 1 && $tileToAttack >= 1) {
                                 $armiesToMove = (Board::getArmies($tile['tile']) - 1) - Board::getArmies($tileToAttack);
-                                echo($tileToAttack . ' ' . $tile['tile'] . ' ' . $armiesToMove . ' ' . $dir[$i] . '<br>');
+                                //echo($tileToAttack . ' ' . $tile['tile'] . ' ' . $armiesToMove . ' ' . $dir[$i] . '<br>');
                                 Board::where('user_id', Auth::user()->id)->where('tile', $tileToAttack)->update(['owns' => 3, 'army' => $armiesToMove]);
+                                Board::where('user_id', Auth::user()->id)->where('tile', $tile['tile'])->update(['army' => 1]);
+                            } else {
+                                $armiesToMove = Board::getArmies($tileToAttack) - (Board::getArmies($tile['tile']) - 1);
+                                    Board::where('user_id', Auth::user()->id)->where('tile', $tileToAttack)->update(['army' => $armiesToMove]);
                                 Board::where('user_id', Auth::user()->id)->where('tile', $tile['tile'])->update(['army' => 1]);
                             }
                         }
