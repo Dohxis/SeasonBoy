@@ -31,17 +31,23 @@ class ConnectController extends Controller
                 $user->email = $request->username . '@seasonboy.com';
                 $user->password = Hash::make($request->password);
                 $user->save();
-                
-                for($i = 0; $i < 100; $i++){
+
+                $canSpawn = [11, 15, 16, 20, 21, 22];
+                $whichToSpawn = mt_rand(0, 5);
+
+                for($i = 0; $i < 25; $i++){
                     $tile = new Board;
                     $tile->user_id = $user->id;
                     $tile->tile = $i;
-                    if($i == 90) {
+                    if($i == $canSpawn[$whichToSpawn]) {
                         $tile->owns = 1;
                         $tile->army = 3;
-                    } else if($i == 8 or $i == 9 or $i == 19) {
+                    } else if($i == 3 or $i == 9 or $i == 4) {
                         $tile->owns = 3;
-                        if($i != 9) $tile->army = 3;
+                        if($i != 4) $tile->army = 3;
+                    } else if($i == 0 or $i == 24) {
+                        $tile->owns = 2;
+                        $tile->army = 5;
                     } else
                         $tile->owns = 0;
                     $tile->save();

@@ -8,7 +8,7 @@
     <div class="row vcenter">
         <div class="col-md-6 center-block">
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body" style="padding-bottom: 50px;">
 
                     @if($user->getEnemyTiles() == 0)
                         <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
@@ -27,10 +27,10 @@
                     @if($user['units'] > 0)
                     <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
                         <b>You have {{ $user['units'] }} undeployed units!</b><br>
-                        All units has to be deployed before attacking. To deploy click on your territories(Green tiles).
+                        All units has to be deployed before attacking. To deploy click on your territories.
                     </div>
                     @else
-                    <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+                    <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
                         <b>It's time to attack!</b><br>
                         Select attacking territory first, and then neutral or enemy's territory to attack.
                         @if(Session::has('attack'))
@@ -47,19 +47,14 @@
                     @endif
 
 
-                        <div class="row" style="margin: 5px;">
-                            <div class="col-xs-6"><a href="/stats" style="width: 50%" class="center-block btn btn-primary">Statistics</a></div>
-                            <div class="col-xs-6"><center>
-                                    <ol class="breadcrumb" style="margin: 0px;">
-                                        <li><b>Season buff</b></li>
-                                        @if(Auth::user()->Summer)<li><span class="label label-warning">Summer</span></li>@endif
-                                        @if(Auth::user()->Winter)<li><span class="label label-primary">Winter</span></li>@endif
-                                        @if(Auth::user()->Spring)<li><span class="label label-success">Spring</span></li>@endif
-                                        @if(Auth::user()->Autumn)<li><span class="label label-danger">Autumn</span></li>@endif
-                                    </ol>
-                                </center></div>
-                        </div>
+                        <div class="well well-sm" style="margin-top: 5px; margin-bottom: 5px;"><center>
 
+                            @if(Auth::user()->Summer)<span class="label label-warning">Summer</span>@endif
+                            @if(Auth::user()->Winter)<span class="label label-primary">Winter</span>@endif
+                            @if(Auth::user()->Spring)<span class="label label-success">Spring</span>@endif
+                            @if(Auth::user()->Autumn)<span class="label label-danger">Autumn</span>@endif
+
+                        </center></div>
 
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
@@ -74,12 +69,13 @@
                             </div>
 
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <p class="navbar-text">Hero <b>{{ $user['name'] }}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Season <b>{{ $user['season'] }}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Turn <b>{{ $user['turn'] }}</b></p>
-                                <ul class="nav navbar-nav navbar-right" style="width: 25%;">
+                                <p class="navbar-text"><i class="fa fa-user" aria-hidden="true"></i> <b>{{ $user['name'] }}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-sun-o" aria-hidden="true"></i>  {!! $user->getSeason() !!} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-compass" aria-hidden="true"></i>  <b>{{ $user['turn'] }}</b></p>
+                                <ul class="nav navbar-nav navbar-right">
+                                        <a href="/stats"  class="btn btn-primary navbar-btn">Statistics</a>
                                     @if($user['units'] == 0)
-                                        <a href="/next" style="margin: 8px; width: 100%" class="btn btn-danger">Next turn</a>
+                                        <a href="/next"  class="btn btn-danger navbar-btn">Next turn</a>
                                     @else
-                                        <a href="/play" style="margin: 8px; width: 100%" class="btn btn-danger" disabled="disabled">Deploy army to continue</a>
+                                        <a href="/play"  class="btn btn-danger navbar-btn" disabled="disabled">Deploy army to continue</a>
                                     @endif
                                 </ul>
                             </div>
@@ -87,17 +83,37 @@
                     </nav>
 
                     <center>
-                    <div class="board center-block">
+                    <div class="board center-block" style="padding-left: 9%; padding-right: 9%;">
                         <center class="center-things">
-                        @foreach($tiles as $tile)
-                            <a href="go/{{ $tile['tile'] }}" class="col-xs-1 tile hover-green" style="color: white; background-color: {{ $tile->getColor() }}; margin: 2px; height: 50px; width: 8%; padding-top: 3%"><b>{{ $tile['army'] }}</b></a>
-                            @if(($tile['tile'] + 1) % 10 == 0)
-                                <div class="row"></div>
-                            @endif
-                        @endforeach
+                            <div style="float: left; width: 600px;">
+                                <div class="hex-row">
+                                    <?php $add=1; ?>
+                                    @foreach($tiles as $tile)
+
+                                        <a href="go/{{ $tile['tile'] }}"></ahref> <div class="hex"><div class="top" style="border-bottom: 30px solid {{ $tile->getColor() }};"></div><div class="middle"
+                                            style="color: white; background: {{ $tile->getColor() }}; padding: 20%;"><b>{{ $tile['army'] }}</b></div><div class="bottom" style="border-top: 30px solid {{ $tile->getColor() }};"></div></div></a>
+
+                                        @if(($tile['tile'] + 1) % 5 == 0 && $add == 1)
+                                </div>
+                                <div class="hex-row even">
+                                    <?php $add = 0; ?>
+
+                                    @else
+
+                                        @if(($tile['tile'] + 1) % 5 == 0 && $add == 0)
+                                </div>
+                                <div class="hex-row">
+                                    <?php $add=1; ?>
+                                    @endif
+
+                                    @endif
+
+                                    @endforeach
+                                </div>
                         </center>
                     </div>
                     </center>
+
                 </div>
             </div>
         </div>

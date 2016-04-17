@@ -1,6 +1,6 @@
 body {
-  background: linear-gradient(283deg, #f3543f 0%, #e2a240 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2a240', endColorstr='#f3543f',GradientType=1 ); }
+  background: url(../images/summer.png) no-repeat center center fixed;
+  background-size: cover; }
 
 .vcenter {
   min-height: 100% !important;
@@ -13,6 +13,34 @@ body {
   align-items: center; }
 
 .center-things {
-  margin-left: 13%; }
+  margin-left: 7%; }
+
+.hex {
+  float: left;
+  margin-left: 3px;
+  margin-bottom: -26px; }
+
+.hex .top {
+  width: 0;
+  border-bottom: 30px solid #6C6;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent; }
+
+.hex .middle {
+  width: 104px;
+  height: 60px;
+  background: #6C6; }
+
+.hex .bottom {
+  width: 0;
+  border-top: 30px solid #6C6;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent; }
+
+.hex-row {
+  clear: left; }
+
+.hex-row.even {
+  margin-left: 53px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -32,16 +32,16 @@ class User extends Authenticatable
         $bg = "";
         switch ($this->season){
             case "Winter":
-                $bg = "background: linear-gradient(283deg, #B7D7EB 0%, #6D9BC3 100%)";
+                $bg = "background: url(../images/winter.png) no-repeat center center fixed;background-size: cover;";
                 break;
             case "Summer":
-                $bg = "background: linear-gradient(283deg, #f3543f 0%, #e2a240 100%)";
+                $bg = "background: url(../images/summer.png) no-repeat center center fixed;background-size: cover;";
                 break;
             case "Autumn":
-                $bg = "background: linear-gradient(283deg, #DACAA6 0%, #CC784C 100%)";
+                $bg = "background: url(../images/autumn.png) no-repeat center center fixed;background-size: cover;";
                 break;
             case "Spring":
-                $bg = "background: linear-gradient(283deg, #BBDA5B 0%, #8FA64A 100%)";
+                $bg = "background: url(../images/spring.png) no-repeat center center fixed;background-size: cover;";
                 break;
         }
         return $bg;
@@ -68,5 +68,21 @@ class User extends Authenticatable
     public function getEnemyTiles(){
         return Board::where('user_id', $this->id)->where('owns', 3)->count();
     }
-    
+
+    public function getSeason(){
+        $season = '<span class="label label-warning">Summer</span>';
+        switch($this->season){
+            case "Autumn":
+                $season = '<span class="label label-danger">Autumn</span>';
+                break;
+            case "Winter":
+                $season = '<span class="label label-primary">Winter</span>';
+                break;
+            case "Spring":
+                $season = '<span class="label label-success">Spring</span>';
+                break;
+        }
+        return $season;
+    }
+
 }
