@@ -71,7 +71,7 @@ class PlayController extends Controller
             User::where('id', Auth::user()->id)->update(['Autumn' => false, 'Winter' => false, 'Summer' => false, 'Spring' => false]);
             $deploy += 10;
 
-            Board::where('user_id', Auth::user()->id)->where('owns', 3)->update(['army' => 3]);
+            Board::where('user_id', Auth::user()->id)->where('owns', 3)->where('army', '<', 3)->update(['army' => 3]);
 
         }
 
