@@ -9,12 +9,27 @@
         <div class="col-md-6 center-block">
             <div class="panel panel-default">
                 <div class="panel-body">
-
+                    @if($user['units'] > 0)
                     <div class="alert alert-success" role="alert">
                         <b>You have {{ $user['units'] }} undeployed units!</b><br>
                         All units has to be deployed before attacking. To deploy click on your territories(Green tiles).
                     </div>
-
+                    @else
+                    <div class="alert alert-danger" role="alert">
+                        <b>It's time to attack!</b><br>
+                        Select attacking territory first, and then neutral or enemy's territory to attack.
+                        @if(Session::has('attack'))
+                            <br><br>
+                            <b>Attacks:</b>
+                            <ul>
+                                @for($i = 0; $i < count(Session::get('attack')); $i += 2)
+                                {{ App\Board::getArmies(Session::get('attack')[$i]) }} vs
+                                {{ App\Board::getArmies(isset(Session::get('attack')[$i+1]) ? Session::get('attack')[$i+1] : '-1') }}<br>
+                                @endfor
+                            </ul>
+                        @endif
+                    </div>
+                    @endif
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
 
@@ -30,7 +45,11 @@
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <p class="navbar-text">Hero <b>{{ $user['name'] }}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Season <b>{{ $user['season'] }}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Turn <b>{{ $user['turn'] }}</b></p>
                                 <ul class="nav navbar-nav navbar-right" style="width: 25%;">
-                                    <a href="/next" style="margin: 8px; width: 100%" class="btn btn-danger">Next turn</a>
+                                    @if($user['units'] == 0)
+                                        <a href="/next" style="margin: 8px; width: 100%" class="btn btn-danger">Next turn</a>
+                                    @else
+                                        <a href="/play" style="margin: 8px; width: 100%" class="btn btn-danger" disabled="disabled">Deploy army to continue</a>
+                                    @endif
                                 </ul>
                             </div>
                         </div>

@@ -15,19 +15,23 @@ class Board extends Model
         else if($this->owns == 1)
             return "#519548";
 
-        $nextTile = Board::
-        where('tile', $this->tile - 1)
-            ->where('user_id', Auth::user()->id)->first();
-        if($nextTile['owns'] == 1)
-            return "#D9A750";
+        else return "#556270";
 
-        $nextTile = Board::
-        where('tile', $this->tile + 10)
-            ->where('user_id', Auth::user()->id)->first();
-        if($nextTile['owns'] == 1)
-            return "#D9A750";
+    }
 
-        return "#556270";
+    public static function getArmies($id){
+        $tile = Board::where('user_id', Auth::user()->id)
+            ->where('tile', $id)->first();
+        return $tile['army'];
+    }
 
+    public static function isMine($id){
+        $tile = Board::where('user_id', Auth::user()->id)
+            ->where('tile', $id)->first();
+        return $tile['owns'] == 1;
+    }
+
+    public static function getEnemiesTiles(){
+        return Board::where('user_id', Auth::user()->id)->where('owns', 3)->get();
     }
 }

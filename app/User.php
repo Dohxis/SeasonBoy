@@ -32,7 +32,7 @@ class User extends Authenticatable
         $bg = "";
         switch ($this->season){
             case "Winter":
-                $bg = "background: linear-gradient(283deg, #878BFF 0%, #081a80 100%)";
+                $bg = "background: linear-gradient(283deg, #B7D7EB 0%, #6D9BC3 100%)";
                 break;
             case "Summer":
                 $bg = "background: linear-gradient(283deg, #f3543f 0%, #e2a240 100%)";
@@ -45,5 +45,19 @@ class User extends Authenticatable
                 break;
         }
         return $bg;
+    }
+
+    public static function genSeason(){
+        $newSeason = mt_rand(0, 3);
+        switch ($newSeason){
+            case 0:
+                return "Winter";
+            case 1:
+                return "Summer";
+            case 2:
+                return "Autumn";
+            case 3:
+                return "Spring";
+        }
     }
 }
