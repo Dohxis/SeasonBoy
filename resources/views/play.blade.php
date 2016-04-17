@@ -9,8 +9,16 @@
         <div class="col-md-6 center-block">
             <div class="panel panel-default">
                 <div class="panel-body">
+
+                    @if($user->getEnemyTiles() == 0)
+                        <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+                            <b>You won!!</b><br>
+                            Congrats you won! You captured all of your enemy's territories.
+                        </div>
+                    @endif
+
                     @if($user['units'] > 0)
-                    <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
+                    <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;">
                         <b>You have {{ $user['units'] }} undeployed units!</b><br>
                         All units has to be deployed before attacking. To deploy click on your territories(Green tiles).
                     </div>

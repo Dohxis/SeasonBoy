@@ -66,6 +66,7 @@ class PlayController extends Controller
         if(Auth::user()->Autumn && Auth::user()->Spring && Auth::user()->Summer && Auth::user()->Winter){
             User::where('id', Auth::user()->id)->update(['Autumn' => false, 'Winter' => false, 'Summer' => false, 'Spring' => false]);
             $deploy += 10;
+            
         }
 
         $dir = [-1, -10, 10];
@@ -108,6 +109,8 @@ class PlayController extends Controller
                 }
             }
         }
+
+
         
         User::where('id', Auth::user()->id)->update(['units' => $deploy, 'season' => $newSeason, $newSeason => true]);
         User::where('id', Auth::user()->id)->increment('turn');
