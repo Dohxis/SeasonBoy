@@ -60,4 +60,8 @@ class User extends Authenticatable
                 return "Spring";
         }
     }
+
+    public function getTiles(){
+        return Board::where('user_id', $this->id)->where('owns', 1)->count();
+    }
 }

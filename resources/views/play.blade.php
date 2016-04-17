@@ -10,12 +10,12 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     @if($user['units'] > 0)
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
                         <b>You have {{ $user['units'] }} undeployed units!</b><br>
                         All units has to be deployed before attacking. To deploy click on your territories(Green tiles).
                     </div>
                     @else
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
                         <b>It's time to attack!</b><br>
                         Select attacking territory first, and then neutral or enemy's territory to attack.
                         @if(Session::has('attack'))
@@ -30,6 +30,22 @@
                         @endif
                     </div>
                     @endif
+
+
+                        <div class="row" style="margin: 5px;">
+                            <div class="col-xs-6"><a href="/stats" style="width: 50%" class="center-block btn btn-primary">Statistics</a></div>
+                            <div class="col-xs-6"><center>
+                                    <ol class="breadcrumb" style="margin: 0px;">
+                                        <li><b>Season buff</b></li>
+                                        @if(Auth::user()->Summer)<li><span class="label label-warning">Summer</span></li>@endif
+                                        @if(Auth::user()->Winter)<li><span class="label label-primary">Winter</span></li>@endif
+                                        @if(Auth::user()->Spring)<li><span class="label label-success">Spring</span></li>@endif
+                                        @if(Auth::user()->Autumn)<li><span class="label label-danger">Autumn</span></li>@endif
+                                    </ol>
+                                </center></div>
+                        </div>
+
+
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
 
