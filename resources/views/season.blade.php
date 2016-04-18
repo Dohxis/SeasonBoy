@@ -12,7 +12,7 @@
                     <b>Select your primary season!</b>
                 </div>
                 <div class="panel-body" style="font-size: 18px;">
-                    It's time to select your primary season. On your primary season you will get bonus army, so choose widely!
+                    It's time to select your primary season. On your primary season you will get bonus army, so choose wisely!
                     <div class="row center-block" style="margin-top: 25px; margin-bottom: 25px;">
                         <div class="col-xs-3"><center><a href="/pickSeason/Winter">{!! $user->getSeasonLabel("Winter") !!}</a></center></div>
                         <div class="col-xs-3"><center><a href="/pickSeason/Spring">{!! $user->getSeasonLabel("Spring") !!}</a></center></div>

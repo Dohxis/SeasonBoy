@@ -107,8 +107,8 @@
                         Welcome to <b>Sezonia</b> hero!<br><br>
                         Please help us! We need you to lead our army against the evil Janesia tribe! If we lose, all
                         seasons will be gone forever and our planet will die! Only you can win against this unstoppable power!
-                        To do so you'll need to destroy all enemy's tiles, which is represented in red on our map. But first I will
-                        introduce you with some basics, and if its is not be enough for you I will give random tips throughout the game.<br>
+                        To do so you'll need to destroy all enemy's tiles, which are represented in red on our map. But first I will
+                        introduce you with some basics, and if its not be enough for you I will give random tips throughout the game.<br>
                         <br>
                         <b>Good luck!</b>
                     </div>
@@ -149,7 +149,7 @@
                     @endif
 
 
-                        <div class="well well-sm" style="margin-top: 5px; margin-bottom: 5px;" data-intro='If you go through all of the season you will get extra armies to deploy, which can be huge advantage against your opponent.' data-step='5'><center>
+                        <div class="well well-sm" style="margin-top: 5px; margin-bottom: 5px;" data-intro='If you go through all of the season you will get extra armies two deploy, which can be huge advantage against your opponent.' data-step='5'><center>
 
                             @if(Auth::user()->Summer)<span class="label label-warning">Summer</span>@endif
                             @if(Auth::user()->Winter)<span class="label label-primary">Winter</span>@endif

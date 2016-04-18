@@ -22,8 +22,8 @@
                             <span class="label @if($user->getEnemyTiles() == 0) label-primary @else label-default @endif">Won</span>
                             <span class="label @if($user->getTiles() >= 12) label-warning @else label-default @endif">Half World</span>
                             <span class="label @if($user->getTiles() == 25) label-danger @else label-default @endif">Conquered the World</span>
-                            <span class="label @if($user['round'] <= 15 && $user->getEnemyTiles() == 0) label-warning @else label-default @endif">Won 15</span>
-                            <span class="label @if($user['round'] <= 10 && $user->getEnemyTiles() == 0) label-danger @else label-default @endif">Won 10</span>
+                            <span class="label @if($user['turn'] <= 15 && $user->getEnemyTiles() == 0) label-warning @else label-default @endif">Won 15</span>
+                            <span class="label @if($user['turn'] <= 10 && $user->getEnemyTiles() == 0) label-danger @else label-default @endif">Won 10</span>
                             <span class="label @if($user->getTotalArmies() > 49) label-warning @else label-default @endif">Army 50</span>
                             <span class="label @if($user->getTotalArmies() > 99) label-danger @else label-default @endif">Army 100</span>
 
@@ -52,8 +52,8 @@
                                     @if($player->getTiles() == 0)<span class="label label-danger">Lost</span>@endif
                                         @if($player->getTiles() == 25)<span class="label label-danger">Conquered the World</span>
                                         @elseif($player->getTiles() == 13)<span class="label label-warning">Half World</span>@endif
-                                    @if($player['round'] <= 10 && $player->getEnemyTiles() == 0)<span class="label label-danger">Won 10</span>
-                                    @elseif($player['round'] <= 15 && $player->getEnemyTiles() == 0)<span class="label label-warning">Won 15</span>@endif
+                                    @if($player['turn'] <= 10 && $player->getEnemyTiles() == 0)<span class="label label-danger">Won 10</span>
+                                    @elseif($player['turn'] <= 15 && $player->getEnemyTiles() == 0)<span class="label label-warning">Won 15</span>@endif
                                         @if($player->getTotalArmies() > 99)<span class="label label-danger">Army 100</span>
                                         @elseif($player->getTotalArmies() > 49)<span class="label label-warning">Army 50</span>@endif</td>
                                     <td scope="row">{{ $player['points'] }}</td>
