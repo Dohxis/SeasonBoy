@@ -18,6 +18,9 @@ class Board extends Model
         else if($this->owns == 2)
             return "#E58D1E";
 
+        else if($this->owns == 4)
+            return "#EE27A8";
+
         else return "#556270";
 
     }

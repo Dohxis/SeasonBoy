@@ -20,7 +20,20 @@ class PlayController extends Controller
     public function index(){
         $user = User::find(Auth::user()->id);
         $tiles = $user->board;
-        return view('play', ['user' => $user, 'tiles' => $tiles]);
+        $tips = [
+            'It is a good idea to attack neutral tiles in autumn, because Blitzkrieg mode is activated and all neutral tiles turns 0.',
+            'In winter enemy cannot attack, but all neutral tiles turns 2, maybe it is a good idea to just stack your army?',
+            'You will get +2 armies in summer.',
+            'Autumn is the season when our enemy gets stronger and gets +2 armies.',
+            'Try to occupy orange tiles to get a bonus.',
+            'If you will not win until turn 27, evil tile will spawn in neutral territory, they cannot attack you nor the enemy, but sometimes it helps!',
+            'It is a good idea to occupy orange tiles as fast as possible.',
+            'You can get achievements throughout the game. To check what you already achieved go to Statistics page.',
+            'Maybe they will just surrender?',
+            'There is a rumour here in Sezonia, that gods can help you win, making one of your tile over 9999.'
+        ];
+        $whichTip = mt_rand(0, count($tips) - 1);
+        return view('play', ['user' => $user, 'tiles' => $tiles, 'tip' => $tips[$whichTip]]);
     }
 
     public function logout(){
@@ -134,10 +147,26 @@ class PlayController extends Controller
         $points = User::where('id', Auth::user()->id)->first()->getTiles() * 10;
         User::where('id', Auth::user()->id)->update(['points' => $points]);
         Session::forget('attack');
+        if(Auth::user()->turn == 27){
+            $neutral = Board::where('user_id', Auth::user()->id)->where('owns', 0)->orderByRaw("RAND()")->first();
+            if(Board::where('user_id', Auth::user()->id)->where('owns', 0)->count() > 0) {
+                Board::where('user_id', Auth::user()->id)->where('tile', $neutral['tile'])->update(['army' => 99, 'owns' => 4]);
+            }
+        }
         return redirect('/play');
     }
 
     public function stats(){
         return view('stats', ['players' => User::orderBy('points', 'desc')->get(), 'user' => Auth::user()]);
+    }
+
+    public function tut(){
+        User::where('id', Auth::user()->id)->update(['tutorial' => true]);
+        return redirect('/play');
+    }
+
+    public function endtut(){
+        User::where('id', Auth::user()->id)->update(['steps' => true]);
+        return redirect('/play');
     }
 }

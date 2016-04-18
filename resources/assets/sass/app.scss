@@ -46,3 +46,20 @@ body {
 .hex-row.even {
   margin-left: 53px;
 }
+
+.modal {
+}
+.vertical-alignment-helper {
+  display:table;
+  height: 100%;
+  width: 100%;
+}
+.vertical-align-center {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-content {
+  width:inherit;
+  height:inherit;
+  margin: 0 auto;
+}
