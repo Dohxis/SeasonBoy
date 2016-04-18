@@ -85,4 +85,46 @@ class User extends Authenticatable
         return $season;
     }
 
+
+    public static function getSeasonLabel($season){
+        switch($season){
+            case "Autumn":
+                $season = '<span class="label label-danger">Autumn</span>';
+                break;
+            case "Winter":
+                $season = '<span class="label label-primary">Winter</span>';
+                break;
+            case "Spring":
+                $season = '<span class="label label-success">Spring</span>';
+                break;
+            default:
+                $season = '<span class="label label-warning">Summer</span>';
+                break;
+        }
+        return $season;
+    }
+
+
+    public function getTotalArmies(){
+        return Board::where('user_id', $this->id)->where('owns', 1)->sum('army');
+    }
+
+    public static function getWonPlayers(){
+        $won = 0;
+        foreach(User::all() as $user){
+            if($user->getEnemyTiles() == 0)
+                $won++;
+        }
+        return $won;
+    }
+
+    public static function getLostPlayers(){
+        $lost = 0;
+        foreach(User::all() as $user){
+            if($user->getTiles() == 0)
+                $lost++;
+        }
+        return $lost;
+    }
+
 }

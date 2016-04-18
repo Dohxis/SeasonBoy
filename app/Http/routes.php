@@ -14,3 +14,6 @@ Route::get('/stats', 'PlayController@stats');
 
 Route::get('/startTutorial', 'PlayController@tut');
 Route::get('/endTutorial', 'PlayController@endtut');
+
+Route::get('/pickSeason', 'PlayController@pick');
+Route::get('/pickSeason/{season}', 'PlayController@pickStore');

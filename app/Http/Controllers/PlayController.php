@@ -26,11 +26,12 @@ class PlayController extends Controller
             'You will get +2 armies in summer.',
             'Autumn is the season when our enemy gets stronger and gets +2 armies.',
             'Try to occupy orange tiles to get a bonus.',
-            'If you will not win until turn 27, evil tile will spawn in neutral territory, they cannot attack you nor the enemy, but sometimes it helps!',
+            'If you cannot win until turn 27, evil tile will spawn in neutral territory, they cannot attack you nor the enemy, but sometimes it helps!',
             'It is a good idea to occupy orange tiles as fast as possible.',
             'You can get achievements throughout the game. To check what you already achieved go to Statistics page.',
             'Maybe they will just surrender?',
-            'There is a rumour here in Sezonia, that gods can help you win, making one of your tile over 9999.'
+            'There is a rumour here in Sezonia, that gods can help you win, making one of your tile over 9999.',
+            'Your primary season gives you +3 bonus every time this season passes.'
         ];
         $whichTip = mt_rand(0, count($tips) - 1);
         return view('play', ['user' => $user, 'tiles' => $tiles, 'tip' => $tips[$whichTip]]);
@@ -85,6 +86,9 @@ class PlayController extends Controller
             $deploy += Board::where('user_id', Auth::user()->id)->where('tile', 0)->where('owns', 1)->count()*5;
             $deploy += Board::where('user_id', Auth::user()->id)->where('tile', 24)->where('owns', 1)->count()*5;
         }
+
+        if(Auth::user()->primary_season == $newSeason)
+            $deploy += 3;
 
         if($newSeason == "Winter")
             Board::where('user_id', Auth::user()->id)->where('owns', 0)->update(['army' => 2]);
@@ -144,7 +148,7 @@ class PlayController extends Controller
         User::where('id', Auth::user()->id)->update(['units' => $deploy, 'season' => $newSeason, $newSeason => true]);
         User::where('id', Auth::user()->id)->increment('turn');
         Board::where('user_id', Auth::user()->id)->where('owns', 3)->where('army', '<', 3)->increment('army');
-        $points = User::where('id', Auth::user()->id)->first()->getTiles() * 10;
+        $points = User::where('id', Auth::user()->id)->first()->getTiles() * 11 + Board::where('user_id', Auth::user()->id)->where('tile', 0)->where('owns', 1)->count()*20 + Board::where('user_id', Auth::user()->id)->where('tile', 24)->where('owns', 1)->count()*20;
         User::where('id', Auth::user()->id)->update(['points' => $points]);
         Session::forget('attack');
         if(Auth::user()->turn == 27){
@@ -157,7 +161,34 @@ class PlayController extends Controller
     }
 
     public function stats(){
-        return view('stats', ['players' => User::orderBy('points', 'desc')->get(), 'user' => Auth::user()]);
+        $pie = '
+        <script>
+
+    var data = [
+        {
+            value: '. User::getWonPlayers() .',
+            color:"#519548",
+            label: "Won"
+        },
+        {
+            value: '. User::getLostPlayers() .',
+            color: "#C44D58",
+            label: "Lost"
+        },
+        {
+            value: '. User::all()->count() .',
+            color: "#556270",
+            label: "Playing"
+        }
+    ];
+
+    var context = document.getElementById(\'pie\').getContext(\'2d\');
+    var pieChart = new Chart(context).Pie(data);
+
+
+</script>
+        ';
+        return view('stats', ['players' => User::orderBy('points', 'desc')->get(), 'user' => Auth::user(), 'stats' => $pie]);
     }
 
     public function tut(){
@@ -167,6 +198,22 @@ class PlayController extends Controller
 
     public function endtut(){
         User::where('id', Auth::user()->id)->update(['steps' => true]);
+        if(User::where('id', Auth::user()->id)->first()['primary_season'] == ""){
+            return redirect('/pickSeason');
+        }
         return redirect('/play');
+    }
+
+    public function pick(){
+        if(User::where('id', Auth::user()->id)->first()['primary_season'] == ""){
+            return view('season', ['user' => Auth::user()]);
+        } else return redirect('/play');
+    }
+
+    public function pickStore($season){
+        if(User::where('id', Auth::user()->id)->first()['primary_season'] == ""){
+            User::where('id', Auth::user()->id)->update(['primary_season' => $season]);
+            return redirect('/play');
+        } else return redirect('/play');
     }
 }

@@ -8,13 +8,14 @@
     <script>
 
         function testAnim(x) {
-            $('.hex').click(function(){
+            $('.hexLink').click(function(){
                 $(this).removeClass().addClass('hex animated ' + x).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){});
+                window.location = $(this).attr('href');
             });
         }
 
         $(document).ready(function(){
-            $('.hex').click(function(e){
+            $('.hexLink').click(function(e){
                 e.preventDefault();
                 var anim = 'shake';
                 testAnim(anim);
@@ -107,7 +108,7 @@
                         Please help us! We need you to lead our army against the evil Janesia tribe! If we lose, all
                         seasons will be gone forever and our planet will die! Only you can win against this unstoppable power!
                         To do so you'll need to destroy all enemy's tiles, which is represented in red on our map. But first I will
-                        introduce you with some basics, and if its wont be enough for you I will give random tips throughout the game.<br>
+                        introduce you with some basics, and if its is not be enough for you I will give random tips throughout the game.<br>
                         <br>
                         <b>Good luck!</b>
                     </div>
@@ -205,7 +206,7 @@
                                     <?php $add=1; ?>
                                     @foreach($tiles as $tile)
 
-                                        <a > <div @if($tile->getColor() == "#519548")data-intro="This is our starting territory. You have to deploy all your armies before attacking. To deploy army you have to click on your tile. After deploying all of your armies, attack phase will start. To attack click on your territory and then on enemy's or neutral one." data-step="2"@endif class="hex animated fadeIn"><div class="top" style="border-bottom: 30px solid {{ $tile->getColor() }};"></div><div class="middle"
+                                        <a class="hexLink" href="/go/{{ $tile['tile'] }}"> <div @if($tile->getColor() == "#519548")data-intro="This is our starting territory. You have to deploy all your armies before attacking. To deploy army you have to click on your tile. After deploying all of your armies, attack phase will start. To attack click on your territory and then on enemy's or neutral one. (Sometimes you need to double click on the tile!)" data-step="2"@endif class="hex animated fadeIn"><div class="top" style="border-bottom: 30px solid {{ $tile->getColor() }};"></div><div class="middle"
                                             style="color: white; background: {{ $tile->getColor() }}; padding: 20%;"><b>{{ $tile['army'] }}</b></div><div class="bottom" style="border-top: 30px solid {{ $tile->getColor() }};"></div></div></a>
 
                                         @if(($tile['tile'] + 1) % 5 == 0 && $add == 1)
