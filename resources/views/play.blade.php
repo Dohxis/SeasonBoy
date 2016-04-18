@@ -55,7 +55,7 @@
                         Wow, You just won against evil Janesia tribe! Our planet will always remember your name!
                     </div>
                     <div class="modal-footer">
-                        <a id="closeLost" class="btn btn-primary btn-lg">Close</a>
+                        <a id="close" class="btn btn-primary btn-lg">Close</a>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                         You just lost against evil Janesia tribe! Better luck next time, thanks for playing. To try one more time create a new here <a href="/logout">here</a>.
                     </div>
                     <div class="modal-footer">
-                        <a id="close" class="btn btn-primary btn-lg">Close</a>
+                        <a id="closeLost" class="btn btn-primary btn-lg">Close</a>
                     </div>
                 </div>
             </div>
