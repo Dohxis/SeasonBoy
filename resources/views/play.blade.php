@@ -126,20 +126,6 @@
             <div class="panel panel-default">
                 <div class="panel-body" style="padding-bottom: 50px;">
 
-                    @if($user->getEnemyTiles() == 0)
-                        <div class="alert alert-success" role="alert" style="margin-bottom: 0px;">
-                            <b>You won!!</b><br>
-                            Congrats you won! You captured all of your enemy's territories.
-                        </div><br>
-                    @endif
-
-                    @if($user->getTiles() == 0)
-                        <div class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
-                            <b>You lost!!</b><br>
-                            You just lost, if you want can click <a href="/logout">here</a> to create a new hero.
-                        </div><br>
-                    @endif
-
                     @if($user['units'] > 0)
                     <div class="alert alert-warning" role="alert" style="margin-bottom: 0px;" data-intro='This area is to show you what phase it is. It shows how much undeployed armies you have, and all of your attacks.' data-step='4'>
                         <b>You have {{ $user['units'] }} undeployed units!</b><br>
