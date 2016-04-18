@@ -5,7 +5,7 @@
 @endsection
 
 @section('scripts')
-    
+
     @if(!$user['tutorial'])
         <script>
             $('#myModal').modal('show');
@@ -33,7 +33,7 @@
     @if($user->getTiles() == 0)
         <script>
             $('#lostModal').modal('show');
-            $('#close').click(function(){
+            $('#closeLost').click(function(){
                 $('#lostModal').modal('hide');
             });
         </script>
@@ -55,7 +55,7 @@
                         Wow, You just won against evil Janesia tribe! Our planet will always remember your name!
                     </div>
                     <div class="modal-footer">
-                        <a id="close" class="btn btn-primary btn-lg">Close</a>
+                        <a id="closeLost" class="btn btn-primary btn-lg">Close</a>
                     </div>
                 </div>
             </div>
