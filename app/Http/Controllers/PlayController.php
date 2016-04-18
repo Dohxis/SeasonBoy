@@ -188,7 +188,31 @@ class PlayController extends Controller
 
 </script>
         ';
-        return view('stats', ['players' => User::orderBy('points', 'desc')->get(), 'user' => Auth::user(), 'stats' => $pie]);
+
+        $army = '
+        <script>
+
+    var data2 = [
+        {
+            value: '. User::getArmyPlayers() .',
+            color:"#519548",
+            label: "Friendly troops"
+        },
+        {
+            value: '. User::getArmyEnemies() .',
+            color: "#C44D58",
+            label: "Enemy troops"
+        }
+    ];
+
+    var context2 = document.getElementById(\'armies\').getContext(\'2d\');
+    var pieChart2 = new Chart(context2).Pie(data2);
+
+
+</script>
+        ';
+
+        return view('stats', ['players' => User::orderBy('points', 'desc')->get(), 'user' => Auth::user(), 'stats' => $pie, 'armies' => $army]);
     }
 
     public function tut(){

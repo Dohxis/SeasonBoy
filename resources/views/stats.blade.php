@@ -6,7 +6,8 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.min.js"></script>
-{!! $stats !!}}}
+{!! $stats !!}}
+{!! $armies !!}}
 @endsection
 
 @section('content')
@@ -28,7 +29,11 @@
 
                         </center>
                     </div>
-                    <label><center>Playing people</center><br><canvas id="pie" width="200px"></canvas></label>
+
+                    <div class="row center-block">
+                        <div class="col-xs-6"><center><label><center>Playing people</center><br><canvas id="pie" width="200px"></canvas></label></center></div>
+                        <div class="col-xs-6"><center><label><center>Armies</center><br><canvas id="armies" width="200px"></canvas></label></center></div>
+                    </div>
 
                     <table class="table">
                         <thead>

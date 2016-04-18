@@ -109,6 +109,10 @@ class User extends Authenticatable
         return Board::where('user_id', $this->id)->where('owns', 1)->sum('army');
     }
 
+    public function getTotalEnemyArmies(){
+        return Board::where('user_id', $this->id)->where('owns', 3)->sum('army');
+    }
+
     public static function getWonPlayers(){
         $won = 0;
         foreach(User::all() as $user){
@@ -125,6 +129,22 @@ class User extends Authenticatable
                 $lost++;
         }
         return $lost;
+    }
+
+    public static function getArmyPlayers(){
+        $army = 0;
+        foreach(User::all() as $user){
+            $army += $user->getTotalArmies();
+        }
+        return $army;
+    }
+
+    public static function getArmyEnemies(){
+        $army = 0;
+        foreach(User::all() as $user){
+            $army += $user->getTotalEnemyArmies();
+        }
+        return $army;
     }
 
 }
