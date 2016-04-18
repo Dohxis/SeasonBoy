@@ -90,7 +90,7 @@
                         Please help us! We need you to lead our army against the evil Janesia tribe! If we lose, all
                         seasons will be gone forever and our planet will die! Only you can win against this unstoppable power!
                         To do so you'll need to destroy all enemy's tiles, which are represented in red on our map. But first I will
-                        introduce you with some basics, and if its not be enough for you I will give random tips throughout the game.<br>
+                        introduce you with some basics, and if it is not enough for you I will give random tips throughout the game.<br>
                         <br>
                         <b>Good luck!</b>
                     </div>
