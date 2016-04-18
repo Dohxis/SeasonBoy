@@ -28,6 +28,7 @@ class PlayController extends Controller
             'Try to occupy orange tiles to get a bonus.',
             'If you cannot win until turn 27, evil tile will spawn in neutral territory, they cannot attack you nor the enemy, but sometimes it helps!',
             'It is a good idea to occupy orange tiles as fast as possible.',
+            'Those orange tiles are called Juins here in Sezonia!',
             'You can get achievements throughout the game. To check what you already achieved go to Statistics page.',
             'Maybe they will just surrender?',
             'There is a rumour here in Sezonia, that gods can help you win, making one of your tile over 9999.',
