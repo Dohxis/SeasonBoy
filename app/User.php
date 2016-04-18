@@ -156,9 +156,9 @@ class User extends Authenticatable
             $a++;
         if($this->getTiles() == 25)
             $a++;
-        if($this['round'] <= 15 && $this->getEnemyTiles() == 0)
+        if($this['turn'] <= 15 && $this->getEnemyTiles() == 0)
             $a++;
-        if($this['round'] <= 10 && $this->getEnemyTiles() == 0)
+        if($this['turn'] <= 10 && $this->getEnemyTiles() == 0)
             $a++;
         if($this->getTotalArmies() > 49)
             $a++;

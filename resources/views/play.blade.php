@@ -5,25 +5,7 @@
 @endsection
 
 @section('scripts')
-    <script>
-
-        function testAnim(x) {
-            $('.hexLink').click(function(){
-                $(this).removeClass().addClass('hex animated ' + x).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){});
-                window.location = $(this).attr('href');
-            });
-        }
-
-        $(document).ready(function(){
-            $('.hexLink').click(function(e){
-                e.preventDefault();
-                var anim = 'shake';
-                testAnim(anim);
-            });
-        });
-
-
-    </script>
+    
     @if(!$user['tutorial'])
         <script>
             $('#myModal').modal('show');
