@@ -57,7 +57,7 @@
                                         @if($player->getTotalArmies() > 49)<span class="label label-warning">Army 50</span>
                                         @elseif($player->getTotalArmies() > 99)<span class="label label-danger">Army 100</span>@endif</td>
                                     <td scope="row">{{ $player['points'] }}</td>
-                                    <td scope="row">{{ $player->getTiles() }}</td>
+                                    <td scope="row">{{ $player->getAch() }} / 7</td>
                                 </tr>
                             @endforeach
                         </tbody>

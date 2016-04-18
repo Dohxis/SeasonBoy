@@ -147,4 +147,24 @@ class User extends Authenticatable
         return $army;
     }
 
+    public function getAch(){
+        $a = 0;
+
+        if($this->getEnemyTiles() == 0)
+            $a++;
+        if($this->getTiles() >= 12)
+            $a++;
+        if($this->getTiles() == 25)
+            $a++;
+        if($this['round'] <= 15 && $this->getEnemyTiles() == 0)
+            $a++;
+        if($this['round'] <= 10 && $this->getEnemyTiles() == 0)
+            $a++;
+        if($this->getTotalArmies() > 49)
+            $a++;
+        if($this->getTotalArmies() > 99)
+            $a++;
+        return $a;
+    }
+
 }
