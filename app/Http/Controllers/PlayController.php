@@ -177,7 +177,7 @@ class PlayController extends Controller
             label: "Lost"
         },
         {
-            value: '. User::all()->count() .',
+            value: '. (User::all()->count() - User::getLostPlayers() - User::getWonPlayers()) .',
             color: "#556270",
             label: "Playing"
         }
