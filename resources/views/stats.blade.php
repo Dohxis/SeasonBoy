@@ -54,8 +54,8 @@
                                         @elseif($player->getTiles() == 13)<span class="label label-warning">Half World</span>@endif
                                     @if($player['round'] <= 10 && $player->getEnemyTiles() == 0)<span class="label label-danger">Won 10</span>
                                     @elseif($player['round'] <= 15 && $player->getEnemyTiles() == 0)<span class="label label-warning">Won 15</span>@endif
-                                        @if($player->getTotalArmies() > 49)<span class="label label-warning">Army 50</span>
-                                        @elseif($player->getTotalArmies() > 99)<span class="label label-danger">Army 100</span>@endif</td>
+                                        @if($player->getTotalArmies() > 99)<span class="label label-danger">Army 100</span>
+                                        @elseif($player->getTotalArmies() > 49)<span class="label label-warning">Army 50</span>@endif</td>
                                     <td scope="row">{{ $player['points'] }}</td>
                                     <td scope="row">{{ $player->getAch() }} / 7</td>
                                 </tr>
